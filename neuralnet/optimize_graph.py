@@ -11,9 +11,9 @@ def trace(model):
     traced = torch.jit.trace(model, (x, hidden))
     return traced
 
-def main(model_checkpoint, save_path):
-    print("loading model from", model_checkpoint)
-    checkpoint = torch.load(model_checkpoint, map_location=torch.device('cpu'))
+def main(args):
+    print("loading model from", args.model_checkpoint)
+    checkpoint = torch.load(args.model_checkpoint, map_location=torch.device('cpu'))
     h_params = SpeechRecognition.hyper_parameters
     model = SpeechRecognition(**h_params)
 
@@ -27,12 +27,17 @@ def main(model_checkpoint, save_path):
 
     print("tracing model...")
     traced_model = trace(model)
-    print("saving to", save_path)
-    traced_model.save(save_path)
+    print("saving to", args.save_path)
+    traced_model.save(args.save_path)
     print("Done!")
 
-# Remplacez ces chemins par vos chemins réels
-model_checkpoint = 'model/model.ckpt.ckpt'
-save_path = 'model/optimized/optimized_model'
 
-main(model_checkpoint, save_path)
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="testing the wakeword engine")
+    parser.add_argument('--model_checkpoint', type=str, default=None, required=True,
+                        help='Checkpoint of model to optimize')
+    parser.add_argument('--save_path', type=str, default=None, required=True,
+                        help='path to save optmized model')
+
+    args = parser.parse_args()
+    main(args)

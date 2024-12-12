@@ -11,6 +11,33 @@ from neuralnet.dataset import get_featurizer
 from decoder import DecodeGreedy, CTCBeamDecoder
 from threading import Event
 
+
+class Listener:
+
+    def __init__(self, sample_rate=8000, record_seconds=2):
+        self.chunk = 1024
+        self.sample_rate = sample_rate
+        self.record_seconds = record_seconds
+        self.p = pyaudio.PyAudio()
+        self.stream = self.p.open(format=pyaudio.paInt16,
+                        channels=1,
+                        rate=self.sample_rate,
+                        input=True,
+                        output=True,
+                        frames_per_buffer=self.chunk)
+
+    def listen(self, queue):
+        while True:
+            data = self.stream.read(self.chunk , exception_on_overflow=False)
+            queue.append(data)
+            time.sleep(0.01)
+
+    def run(self, queue):
+        thread = threading.Thread(target=self.listen, args=(queue,), daemon=True)
+        thread.start()
+        print("\Speech Recognition engine is now listening... \n")
+
+
 class SpeechRecognitionEngine:
 
     def __init__(self, model_file, ken_lm_file, context_length=10):
@@ -71,6 +98,7 @@ class SpeechRecognitionEngine:
                                     args=(action,), daemon=True)
         thread.start()
 
+
 class DemoAction:
 
     def __init__(self):
@@ -85,17 +113,17 @@ class DemoAction:
         if current_context_length > 10:
             self.asr_results = trascript
 
-# Remplacer argparse par des définitions directes d'arguments
-class Args:
-    model_file = "model/optimized/optimized_model"  # Spécifiez le chemin de votre fichier modèle
-    ken_lm_file = "ctcdecode/third_party/kenlm/"  # Spécifiez le chemin de votre fichier kenlm si vous en avez un, sinon laissez None
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="demoing the speech recognition engine in terminal.")
+    parser.add_argument('--model_file', type=str, default=None, required=True,
+                        help='optimized file to load. use optimize_graph.py')
+    parser.add_argument('--ken_lm_file', type=str, default=None, required=False,
+                        help='If you have an ngram lm use to decode')
 
-args = Args()
+    args = parser.parse_args()
+    asr_engine = SpeechRecognitionEngine(args.model_file, args.ken_lm_file)
+    action = DemoAction()
 
-# Initialiser l'engine avec les arguments spécifiés
-asr_engine = SpeechRecognitionEngine(args.model_file, args.ken_lm_file)
-action = DemoAction()
-
-# Exécuter l'engine
-asr_engine.run(action)
-Event().wait()
+    asr_engine.run(action)
+    threading.Event().wait()
+    # activate speech recognition engine
