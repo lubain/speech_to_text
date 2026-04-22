@@ -1,17 +1,5 @@
-# Byte-compiled / optimized / DLL files
-__pycache__/
-*.py[cod]
-*$py.class
-*.wav
-
-wakeword_temp
-tb_logs
-*.ckpt*
-*.pt*
-core
-ckpt
-audio_temp
-optimized
-
-ctcdecode
-transcript.txt
+.venv
+.pytest_cache/
+__pycache__
+dataset/
+.env
