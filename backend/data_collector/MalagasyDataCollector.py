@@ -23,11 +23,11 @@ class MalagasyDataCollector:
 
     def record_sentence(self, sentence, speaker_id, duration=5):
         """Enregistre une phrase avec countdown"""
-        print(f"\n📢 Préparez-vous à lire: '{sentence}'")
+        print(f"\n Préparez-vous à lire: '{sentence}'")
         for i in range(3, 0, -1):
             print(f"  {i}...")
         
-        print("🔴 ENREGISTREMENT...")
+        print("ENREGISTREMENT...")
         audio = sd.rec(
             int(duration * self.sample_rate),
             samplerate=self.sample_rate,
@@ -35,7 +35,7 @@ class MalagasyDataCollector:
             dtype='float32'
         )
         sd.wait()
-        print("✅ Enregistrement terminé")
+        print("Enregistrement terminé")
         return audio.flatten()
 
     def save_recording(self, audio, sentence, speaker_id, utt_id):
@@ -51,17 +51,17 @@ class MalagasyDataCollector:
             writer.writerow([filename, sentence, speaker_id, 
                            datetime.now().isoformat()])
         
-        print(f"💾 Sauvegardé: {audio_path}")
+        print(f"Sauvegardé: {audio_path}")
 
     def collect_session(self, speaker_id):
         """Session complète d'enregistrement"""
-        print(f"\n🎙️ Session pour le locuteur {speaker_id}")
+        print(f"\n Session pour le locuteur {speaker_id}")
         
         for i, sentence in enumerate(self.sentences):
             audio = self.record_sentence(sentence, speaker_id)
             self.save_recording(audio, sentence, speaker_id, i)
             
-        print(f"\n✅ Session terminée! {len(self.sentences)} phrases enregistrées")
+        print(f"\n Session terminée! {len(self.sentences)} phrases enregistrées")
 
 # Utilisation
 collector = MalagasyDataCollector()

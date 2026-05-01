@@ -20,7 +20,7 @@ class MalagasySTTModel:
 
     def load_pretrained(self):
         """Charge Whisper pré-entraîné"""
-        print(f"⬇️  Chargement de {self.model_name}...")
+        print(f"Chargement de {self.model_name}...")
         self.processor = WhisperProcessor.from_pretrained(
             self.model_name,
             language="Malagasy",
@@ -35,7 +35,7 @@ class MalagasySTTModel:
                 language="malagasy", task="transcribe"
             )
         )
-        print("✅ Modèle chargé!")
+        print("Modèle chargé!")
         return self.processor, self.model
 
     def prepare_dataset(self, batch):

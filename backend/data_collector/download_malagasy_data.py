@@ -14,16 +14,16 @@ def download_malagasy_data():
             split="train",
             trust_remote_code=True
         )
-        print(f"✅ {len(dataset)} échantillons trouvés dans Common Voice")
+        print(f"{len(dataset)} échantillons trouvés dans Common Voice")
         return dataset
     except Exception as e:
-        print(f"⚠️  Peu de données disponibles: {e}")
-        print("➡️  Il faudra collecter manuellement")
+        print(f"Peu de données disponibles: {e}")
+        print("Il faudra collecter manuellement")
         return None
 
 # Estimation du volume nécessaire
 print("""
-📊 Volume de données recommandé:
+    Volume de données recommandé:
    - Minimum viable : 10 heures (prototype)
    - Bon modèle     : 100 heures
    - Modèle robuste : 1000+ heures

@@ -94,7 +94,7 @@ class AudioPreprocessor:
 
     def preprocess_file(self, input_path, output_dir, augment=True):
         """Pipeline complet de prétraitement pour un fichier"""
-        print(f"⚙️  Traitement: {input_path}")
+        print(f"Traitement: {input_path}")
         
         audio, sr = self.load_audio(input_path)
         audio = self.remove_silence(audio)
@@ -119,7 +119,7 @@ class AudioPreprocessor:
                 sf.write(aug_path, aug_audio, sr)
                 saved_files.append(aug_path)
         
-        print(f"   ✅ {len(saved_files)} fichiers générés (original + augmentations)")
+        print(f"{len(saved_files)} fichiers générés (original + augmentations)")
         return saved_files
 
 # Exemple d'utilisation

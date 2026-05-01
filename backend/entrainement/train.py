@@ -47,7 +47,7 @@ def train_malagasy_stt(processor, model, train_dataset, eval_dataset):
         label_str = processor.batch_decode(label_ids, skip_special_tokens=True)
         
         wer = wer_metric.compute(predictions=pred_str, references=label_str)
-        print(f"\n📊 WER: {wer * 100:.2f}%")
+        print(f"\n WER: {wer * 100:.2f}%")
         return {"wer": wer}
 
     # Configuration d'entraînement
@@ -86,11 +86,11 @@ def train_malagasy_stt(processor, model, train_dataset, eval_dataset):
         tokenizer      = processor.feature_extractor,
     )
 
-    print("🚀 Début de l'entraînement...")
+    print("Début de l'entraînement...")
     trainer.train()
     
     # Sauvegarde
     trainer.save_model("./whisper-malagasy-final")
     processor.save_pretrained("./whisper-malagasy-final")
-    print("✅ Modèle sauvegardé dans ./whisper-malagasy-final")
+    print("Modèle sauvegardé dans ./whisper-malagasy-final")
     return trainer
