@@ -1,0 +1,27 @@
+# ── Serveur ───────────────────────────────────────────────────────────────────
+fastapi==0.115.6
+uvicorn[standard]==0.32.1
+
+# ── Multipart / upload ────────────────────────────────────────────────────────
+python-multipart==0.0.12
+
+# ── Reconnaissance vocale ─────────────────────────────────────────────────────
+SpeechRecognition==3.14.3
+
+# ── Conversion audio (WAV, WebM, OGG, MP3…) ──────────────────────────────────
+pydub==0.25.1
+# ffmpeg est requis par pydub — installez-le via :
+#   Ubuntu/Debian : sudo apt install ffmpeg
+#   macOS         : brew install ffmpeg
+#   Windows       : https://ffmpeg.org/download.html
+
+# ── Configuration ─────────────────────────────────────────────────────────────
+pydantic-settings==2.6.1
+
+# ── Moteur hors-ligne (optionnel) ─────────────────────────────────────────────
+# pocketsphinx==5.0.3     # décommentez pour activer le moteur Sphinx
+
+# ── Dev / tests ───────────────────────────────────────────────────────────────
+pytest==8.3.4
+pytest-asyncio==0.24.0
+httpx==0.27.2
