@@ -43,11 +43,13 @@ router = APIRouter()
 def _raise_http(exc: TranscriptionError) -> None:
     """Convertit une TranscriptionError en HTTPException."""
     status_map = {
-        "file_too_large": status.HTTP_413_REQUEST_ENTITY_TOO_LARGE,
-        "unsupported_format": status.HTTP_415_UNSUPPORTED_MEDIA_TYPE,
-        "no_speech_detected": status.HTTP_422_UNPROCESSABLE_CONTENT,
-        "service_unavailable": status.HTTP_503_SERVICE_UNAVAILABLE,
-        "unsupported_engine": status.HTTP_400_BAD_REQUEST,
+        "file_too_large": 413,
+        "unsupported_format": 415,
+        "no_speech_detected": 422,
+        "ffmpeg_required": 415,
+        "wav_decode_failed": 422,
+        "service_unavailable": 503,
+        "unsupported_engine": 400,
     }
     http_status = status_map.get(exc.code, status.HTTP_500_INTERNAL_SERVER_ERROR)
     raise HTTPException(
