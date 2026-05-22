@@ -1,7 +1,5 @@
-import VoiceRecognition from "./presentation/components/VoiceRecognition";
+import VoiceRecognition from "@/components/VoiceRecognition";
 
-function App() {
+export default function App() {
   return <VoiceRecognition />;
 }
-
-export default App;
