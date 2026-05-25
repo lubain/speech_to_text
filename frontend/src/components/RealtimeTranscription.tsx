@@ -151,7 +151,14 @@ export default function RealtimeTranscription() {
       setLines((prev) => {
         // Remplace le dernier interim par le nouveau, ou ajoute une ligne
         if (msg.type === "interim") {
-          const lastIdx = prev.findLastIndex((l) => l.type === "interim");
+          // findLastIndex absent en ES2022 → boucle manuelle
+          let lastIdx = -1;
+          for (let i = prev.length - 1; i >= 0; i--) {
+            if (prev[i].type === "interim") {
+              lastIdx = i;
+              break;
+            }
+          }
           if (lastIdx !== -1) {
             const updated = [...prev];
             updated[lastIdx] = {
