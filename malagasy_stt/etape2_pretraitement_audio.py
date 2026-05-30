@@ -194,7 +194,7 @@ class AudioPreprocessor:
         Retourne la liste des fichiers générés.
         """
         if verbose:
-            print(f"⚙️   Traitement : {os.path.basename(input_path)}")
+            print(f"Traitement : {os.path.basename(input_path)}")
 
         audio, sr = self.load_audio(input_path)
         audio     = self.remove_silence(audio)
@@ -220,7 +220,7 @@ class AudioPreprocessor:
                 saved_files.append(aug_path)
 
         if verbose:
-            print(f"   ✅ {len(saved_files)} fichiers générés "
+            print(f"{len(saved_files)} fichiers générés "
                   f"(1 clean + {len(saved_files)-1} augmentations)\n")
         return saved_files
 
@@ -234,7 +234,7 @@ class AudioPreprocessor:
         Génère un nouveau metadata_processed.csv avec les fichiers créés.
         """
         print(f"\n{'='*55}")
-        print(f"  🔧 Prétraitement du dataset")
+        print(f"Prétraitement du dataset")
         print(f"{'='*55}\n")
 
         processed_rows = []
@@ -278,10 +278,10 @@ class AudioPreprocessor:
             writer.writerows(processed_rows)
 
         print(f"\n{'='*55}")
-        print(f"  ✅ Prétraitement terminé !")
-        print(f"     Fichiers générés : {len(processed_rows)}")
-        print(f"     Erreurs          : {len(errors)}")
-        print(f"     Metadata         : {out_csv}")
+        print(f"  Prétraitement terminé !")
+        print(f"  Fichiers générés : {len(processed_rows)}")
+        print(f"  Erreurs          : {len(errors)}")
+        print(f"  Metadata         : {out_csv}")
         print(f"{'='*55}\n")
         return processed_rows, errors
 
@@ -306,4 +306,4 @@ if __name__ == "__main__":
     #     augment=True
     # )
 
-    print("✅ Étape 2 terminée — Audio prétraité et augmenté dans ./dataset/processed/")
+    print("Étape 2 terminée — Audio prétraité et augmenté dans ./dataset/processed/")

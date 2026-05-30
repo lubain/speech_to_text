@@ -1,4 +1,3 @@
-
 import sounddevice as sd
 import soundfile as sf
 import numpy as np
@@ -52,7 +51,7 @@ class MalagasyDataCollector:
 
     def record_sentence(self, sentence, duration=5):
         """Enregistre une phrase avec countdown visuel."""
-        print(f"\n  📢 Lisez cette phrase :")
+        print(f"\n Lisez cette phrase :")
         print(f"     ➜  « {sentence} »")
         print()
         for i in range(3, 0, -1):
@@ -67,7 +66,7 @@ class MalagasyDataCollector:
             dtype='float32'
         )
         sd.wait()
-        print("  ✅ Terminé !\n")
+        print("Terminé !\n")
         return audio.flatten()
 
     def save_recording(self, audio, sentence, speaker_id, utt_id):
@@ -83,7 +82,7 @@ class MalagasyDataCollector:
             writer.writerow([filename, sentence, speaker_id,
                              datetime.now().isoformat(), f"{duration:.2f}"])
 
-        print(f"  💾 Sauvegardé : {audio_path}  ({duration:.1f}s)")
+        print(f" Sauvegardé : {audio_path}  ({duration:.1f}s)")
         return audio_path
 
     def collect_session(self, speaker_id, sentence_indices=None):
@@ -94,8 +93,8 @@ class MalagasyDataCollector:
         sentences = self.sentences if sentence_indices is None \
             else [self.sentences[i] for i in sentence_indices]
 
-        print(f"\n{'='*55}")
-        print(f"  🎙️  Session — Locuteur n°{speaker_id}")
+        print(f"\n {'='*55}")
+        print(f" Session — Locuteur n°{speaker_id}")
         print(f"  {len(sentences)} phrase(s) à enregistrer")
         print(f"{'='*55}")
 
@@ -107,7 +106,7 @@ class MalagasyDataCollector:
             saved.append(path)
 
         print(f"\n{'='*55}")
-        print(f"  ✅ Session terminée ! {len(saved)} fichiers enregistrés.")
+        print(f" Session terminée ! {len(saved)} fichiers enregistrés.")
         print(f"{'='*55}\n")
         return saved
 
@@ -121,14 +120,14 @@ def download_common_voice_malagasy(output_dir="dataset"):
         from datasets import load_dataset
         import soundfile as sf
 
-        print("⬇️  Téléchargement Common Voice — langue malgache (mg)...")
+        print("Téléchargement Common Voice — langue malgache (mg)...")
         dataset = load_dataset(
             "mozilla-foundation/common_voice_13_0",
             "mg",
             split="train",
             trust_remote_code=True
         )
-        print(f"✅ {len(dataset)} échantillons trouvés !")
+        print(f" {len(dataset)} échantillons trouvés !")
 
         # Sauvegarde locale
         audio_dir = f"{output_dir}/audio"
@@ -151,11 +150,11 @@ def download_common_voice_malagasy(output_dir="dataset"):
                 if i % 50 == 0:
                     print(f"  Sauvegarde... {i}/{len(dataset)}")
 
-        print(f"\n✅ Dataset Common Voice sauvegardé dans {output_dir}/")
+        print(f"\n Dataset Common Voice sauvegardé dans {output_dir}/")
         return dataset
 
     except Exception as e:
-        print(f"⚠️  Erreur lors du téléchargement : {e}")
+        print(f" Erreur lors du téléchargement : {e}")
         print("   → Collectez manuellement avec MalagasyDataCollector")
         return None
 
@@ -191,4 +190,4 @@ if __name__ == "__main__":
     # Option B : Téléchargement Common Voice
     # download_common_voice_malagasy(output_dir="dataset")
 
-    print("✅ Étape 1 terminée — Données collectées dans ./dataset/")
+    print("Étape 1 terminée — Données collectées dans ./dataset/")
