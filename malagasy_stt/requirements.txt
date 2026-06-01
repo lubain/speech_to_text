@@ -1,0 +1,31 @@
+# ═══════════════════════════════════════════════════
+#  DÉPENDANCES — STT Malgache
+#  Installez avec : pip install -r requirements.txt
+# ═══════════════════════════════════════════════════
+
+# ── Core ML ─────────────────────────────────────────
+torch>=2.0.0
+torchaudio>=2.0.0
+transformers>=4.36.0
+accelerate>=0.25.0
+
+# ── Audio ───────────────────────────────────────────
+librosa>=0.10.0
+soundfile>=0.12.0
+sounddevice>=0.4.6      # enregistrement microphone
+scipy>=1.11.0
+
+# ── Données ─────────────────────────────────────────
+datasets>=2.14.0        # HuggingFace datasets (Common Voice)
+numpy>=1.24.0
+
+# ── Métriques ───────────────────────────────────────
+evaluate>=0.4.0
+jiwer>=3.0.0            # calcul WER/CER
+
+# ── Suivi entraînement ──────────────────────────────
+tensorboard>=2.14.0
+
+# ── Utilitaires ─────────────────────────────────────
+tqdm>=4.66.0
+pandas>=2.0.0
