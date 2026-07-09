@@ -7,7 +7,7 @@ name = "speech-to-text"
 version = "1.0.0"
 requires-python = ">=3.11"
 dependencies = [
-    "fastapi[standard]>=0.115.0",
+    "fastapi[standard]>=0.115.6",
     "uvicorn[standard]==0.32.1",
     "python-multipart==0.0.12",
     "SpeechRecognition==3.14.3",
@@ -22,4 +22,4 @@ dependencies = [
 entrypoint = "app/main:app"
 
 [tool.hatch.build.targets.wheel]
-packages = ["app/main.py"]
+packages = ["app"]
